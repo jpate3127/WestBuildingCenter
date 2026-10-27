@@ -7,6 +7,7 @@ Next.js 16 (App Router, React 19, server components by default) · TypeScript ·
 
 ## Commands
 - `npm run db:local` — embedded Postgres for development (prints the DATABASE_URL in `.env.example`). Keep it running in its own terminal.
+- Set `DEV_ADMIN_EMAIL` in `.env` to open `/admin` locally without Google (ignored in production builds). Port 3000 is often taken by the Gateway RipCo dev server; `next dev` then uses 3001.
 - `npm run dev` · `npm run build` · `npm run typecheck` · `npm run lint` · `npm test`
 - `npm run db:migration:new -- <name>` after a schema change (creates the SQL, does not apply) · `npm run db:migrate:deploy` applies. Railway runs `migrate deploy` on each deploy (see README).
 - `npm run db:seed` — starter content; idempotent by slug.
