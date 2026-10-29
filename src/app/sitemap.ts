@@ -4,6 +4,10 @@ import { prisma } from "@/lib/db";
 import { getAllPromotions, getPublishedProjects } from "@/lib/queries";
 import { siteUrl } from "@/lib/site";
 
+// Built per request so new promotions and projects appear without a redeploy
+// (and so `next build` does not need the database).
+export const dynamic = "force-dynamic";
+
 const STATIC: Array<{ path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }> = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
   { path: "/promotions", priority: 0.9, changeFrequency: "weekly" },

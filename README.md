@@ -25,7 +25,7 @@ Checks: `npm run typecheck && npm run lint && npm test`. Build: `npm run build`.
 
 ## Going live on Railway
 
-One Railway project holds three things: the **Postgres** database, a storage **bucket** for uploads, and the **website**. Push to the GitHub repo's main branch and the website redeploys itself (migrations run first, see `railway.json`).
+One Railway project holds three things: the **Postgres** database, a storage **bucket** for uploads, and the **website**. Push to the GitHub repo's main branch and the website redeploys itself (migrations run first). If the service shows "Auto deploy unavailable", press Ctrl+K in Railway and run **Deploy latest commit**.
 
 ### 1. Accounts (one time)
 
@@ -41,7 +41,7 @@ One Railway project holds three things: the **Postgres** database, a storage **b
 
 ### 3. The website
 
-1. **Create → GitHub Repo** → pick this repo. Railway detects Node and uses `railway.json` (build `npm run build`, pre-deploy `npm run db:migrate:deploy`, start `npm run start`).
+1. **Create → GitHub Repo** → pick this repo (if it is not listed, paste the repo URL into the search box). Railway no longer reads `railway.json` for new services, so set these under Service → **Settings**: Build command `npm run build`, Pre-deploy command `npm run db:migrate:deploy`, Start command `npm run start`, Healthcheck path `/`. `package.json` pins Node 22; without it the builder picks Node 18, which Next 16 cannot run on.
 2. Service → **Variables** → add (Raw Editor is fastest):
 
    ```
@@ -53,10 +53,11 @@ One Railway project holds three things: the **Postgres** database, a storage **b
    GOOGLE_CLIENT_SECRET=…
    ADMIN_EMAILS=garrett@…, joey.j.pate@gmail.com
    BUCKET_ENDPOINT=${{uploads.ENDPOINT}}
-   BUCKET_NAME=${{uploads.BUCKET_NAME}}
+   BUCKET_NAME=${{uploads.BUCKET}}
    BUCKET_ACCESS_KEY_ID=${{uploads.ACCESS_KEY_ID}}
    BUCKET_SECRET_ACCESS_KEY=${{uploads.SECRET_ACCESS_KEY}}
    BUCKET_REGION=${{uploads.REGION}}
+   PORT=8080
    TZ=America/Chicago
    ```
 

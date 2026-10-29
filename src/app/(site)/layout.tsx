@@ -7,6 +7,11 @@ import { getContent } from "@/lib/content";
 import { isOpenNow } from "@/lib/hours";
 import { ADDRESS_LINE, SITE } from "@/lib/site";
 
+// Every public page reads owner-edited content from Postgres. Rendering per
+// request (not at build time) keeps `next build` from needing a database:
+// Railway's build container cannot reach the private Postgres host.
+export const dynamic = "force-dynamic";
+
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   const content = await getContent();
   const openNow = isOpenNow(content["store.hours"]);

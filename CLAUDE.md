@@ -24,6 +24,7 @@ Next.js 16 (App Router, React 19, server components by default) · TypeScript ·
 - Design tokens are Tailwind theme colors in `globals.css`: `brand` (red), `ink` (near-black), `cream` (projects section), `paper` (light gray), `line`, `muted`. Headings use the `display` class (Barlow Condensed, uppercase); small labels use `eyebrow`.
 - Mobile first: 16 px gutters (`Container`), buttons ≥ 48 px tall, `tel:` links everywhere a phone number appears, no horizontal scroll at 390 px, grids collapse to 1–2 columns.
 - Public pages read through `src/lib/queries.ts` so the "what is live" rules (published, within dates, ACTIVE status) live in one place.
+- Public pages render per request (`force-dynamic` in `(site)/layout.tsx`): `next build` must not touch the database, because Railway's build container cannot reach Postgres.
 - Forms: server actions with `zod`, the `Honeypot` field, `rateLimited()` per IP, and `useActionState` on the client. Never trust `formData` without parsing.
 - Admin writes: validate with zod, then `revalidatePath("/")` plus the affected public path(s).
 - Images: store keys only. `storeImage(file)` / `storePdf(file)` return the key; `mediaUrl(key)` / `thumbUrl(key)` build URLs; `removeStored(key)` deletes both variants.
