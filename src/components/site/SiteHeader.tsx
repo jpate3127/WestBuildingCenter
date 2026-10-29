@@ -29,24 +29,21 @@ export function SiteHeader({ hoursShort, openNow }: Props) {
   return (
     <header className="border-b border-line bg-white">
       <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:py-4">
-        <Link href="/" className="display text-[22px] leading-[0.95] text-ink sm:text-[28px] lg:text-[32px]" aria-label={`${SITE.name} home`}>
-          <span className="block lg:inline">West </span>
+        <Link href="/" className="display text-[22px] leading-[0.95] text-ink sm:text-[28px] lg:text-[26px] xl:text-[32px]" aria-label={`${SITE.name} home`}>
+          <span className="block xl:inline">West </span>
           <span className="text-brand">Building Center</span>
-          <span className="eyebrow mt-1 hidden text-[12px] tracking-[0.22em] text-muted lg:block">Lumber · Electric · Hardware · Plumbing</span>
+          <span className="eyebrow mt-1 hidden text-[12px] tracking-[0.18em] text-muted xl:block">Lumber · Electric · Hardware · Plumbing</span>
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-5 font-semibold lg:flex">
+        <nav aria-label="Main" className="hidden items-center gap-3.5 text-[15px] font-semibold whitespace-nowrap lg:flex">
           {NAV.map((item) => (
             <Link key={item.href} href={item.href} className={cx("hover:text-brand", pathname.startsWith(item.href) && "text-brand")}>
               {item.label}
             </Link>
           ))}
-          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-muted">
-            <OpenDot open={openNow} />
-            {openNow ? "Open now" : hoursShort}
-          </span>
-          <ButtonLink href={SITE.phoneHref} variant="ink" className="min-h-11 px-4 py-2.5">
-            <PhoneIcon /> {SITE.phoneDisplay}
+          <ButtonLink href={SITE.phoneHref} variant="ink" aria-label={`Call ${SITE.phoneDisplay}`} className="min-h-11 px-3 py-2.5 xl:px-4">
+            <PhoneIcon />
+            <span className="hidden xl:inline">{SITE.phoneDisplay}</span>
           </ButtonLink>
         </nav>
 
